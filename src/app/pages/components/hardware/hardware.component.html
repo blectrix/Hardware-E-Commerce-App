@@ -1,0 +1,57 @@
+<div>
+  <img [src]="hardware?.cover" />
+</div>
+
+<ion-item lines="none">
+  <ion-label class="ion-text-wrap">
+    <ion-text>
+      <ion-row>
+        <ion-col size="9">
+          <strong style="font-size: 1rem;">{{hardware?.name}}</strong>
+        </ion-col>
+        <ion-col size="1" class="ion-text-right">
+          <ion-button fill="clear" (click)="addToCart(p)">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="2" class="ion-text-right">
+          <ion-button fill="clear" (click)="addToOrder(p)">
+            <ion-icon name="receipt-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-text>
+    
+
+
+    <p>
+      <ion-text color="medium">
+        {{getCuisines(hardware?.cuisines)}}
+      </ion-text>
+    </p>
+    <ion-row class="ion-text-left">
+      <ion-col size="5.5">
+        <ion-text><b style="font-size: 1rem;">{{hardware?.price}}</b></ion-text>
+      </ion-col>
+      <ion-col size="2" class="rating">
+        <ion-text>{{hardware?.rating}} </ion-text>
+        <ion-icon name="star" color="dark"></ion-icon>
+      </ion-col>
+      <ion-col *ngIf="hardware?.availability == 'In Stock'" size="4.5">
+        <ion-text color="success">
+          <ion-text>{{hardware?.availability}}</ion-text>
+        </ion-text>
+      </ion-col>
+      <ion-col *ngIf="hardware?.availability == 'Out Of Stock'" size="4.5">
+        <ion-text color="danger">
+          <ion-text>{{hardware?.availability}}</ion-text>
+        </ion-text>
+      </ion-col>
+    </ion-row>
+   <p *ngIf="hardware?.expdate">
+      <ion-text color="danger" class="expdate">
+        On Promotion Until: {{hardware?.expdate}}
+      </ion-text>
+    </p> 
+  </ion-label>
+</ion-item>

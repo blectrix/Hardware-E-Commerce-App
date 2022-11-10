@@ -1,0 +1,214 @@
+<ion-content color="light">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+<ion-row class="sticky-row" >
+  <ion-col size="1.25">
+    <ion-button (click)="logoutToast()" fill="clear">
+      <ion-icon name="person-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-col>
+  <ion-col size="2">
+    <ion-button fill="clear">
+      <ion-icon name="mail-unread-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-col>
+  <ion-col size="2" class="ion-padding-start">
+    <img src="./assets/imgs/homelogo.png">
+  </ion-col>
+  <ion-col size="4">
+    <ion-text color="primary">
+      <span><b>HARDWARE</b></span><br>
+      <span>STORE</span>
+    </ion-text>
+  </ion-col>
+  
+</ion-row>
+
+<ion-fab slot="fixed" vertical="bottom" horizontal="end">
+  <ion-fab-button color="secondary"><ion-icon name="share-social-outline"></ion-icon></ion-fab-button>
+  <ion-fab-list size="undefined" side="top">
+    <ion-fab-button href="https://facebook.com/">
+      <ion-icon color="tertiary" name="logo-facebook"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button href="https://twitter.com/">
+      <ion-icon color="secondary" name="logo-twitter"></ion-icon>
+    </ion-fab-button>
+    <ion-fab-button href="https://web.whatsapp.com/">
+      <ion-icon color="success" name="logo-whatsapp"></ion-icon>
+    </ion-fab-button>
+  </ion-fab-list>
+</ion-fab>
+
+<ion-fab style="transform: translateY(-0.7vh);" vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="openCart()" #cart>
+    <div class="cart-length">{{ cartItemCount | async }}</div>
+    <ion-icon name="cart" class="cart-icon"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-row >
+  <ion-col size="9">
+    <ion-searchbar placeholder="Building equipment, Electronics or Plumbing"></ion-searchbar>
+  </ion-col>
+  <ion-col size="1">
+    <ion-button fill="clear">
+      <ion-icon name="funnel-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-col>
+  <ion-col size="1.5">
+    <ion-button (click)="presentPopover($event)" fill="clear">
+      <ion-icon name="options-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+  </ion-col>
+</ion-row>
+
+<ion-row>
+  <swiper [config]="bannerConfig" class="banners">
+    <ng-template swiperSlide *ngFor="let banner of banners">
+      <img [src]="banner?.banner" />
+    </ng-template>
+  </swiper>
+</ion-row>
+
+<ion-row class="ion-text-center category" *ngIf="categories?.length > 0">
+  <swiper [config]="categoryConfig">
+    <ng-template swiperSlide *ngFor="let category of categories">
+      <div align="center">
+        <ion-avatar slot="start">
+          <img [src]="category?.image"  [routerLink]="['/', 'tabs', 'categories', category?.id]"/>
+        </ion-avatar>
+      </div>
+      <ion-label class="ion-text-wrap">{{category?.name}}</ion-label>
+      
+    </ng-template>
+  </swiper>
+</ion-row>
+
+<ion-row *ngIf="promos?.length > 0">
+  <ion-col size="8">
+    <ion-label class="ion-margin-start heading">
+      On Promotion
+    </ion-label>
+  </ion-col>
+  <ion-col size="4">
+    <ion-button fill="clear" color="medium" size="small">
+      VIEW ALL
+      <ion-icon color="primary" name="chevron-forward-circle-outline" slot="end"></ion-icon>
+    </ion-button>
+  </ion-col>
+  <swiper [config]="hardwareConfig">
+    <ng-template swiperSlide *ngFor="let promo of promos"> 
+      <ion-card>
+        <app-hardware [hardware]="promo" [routerLink]="['/', 'promotions', promo?.id]"></app-hardware>
+      </ion-card>
+    </ng-template>
+  </swiper>
+</ion-row>
+
+<ion-row>
+  <ion-col size="8">
+    <ion-label class="ion-margin-start heading">
+      Videos
+    </ion-label>
+  </ion-col>
+  <ion-col size="4">
+    <ion-button (click)="videos()" fill="clear" color="medium" size="small">
+      VIEW ALL
+      <ion-icon color="primary" name="chevron-down-circle-outline" slot="end"></ion-icon>
+    </ion-button>
+  </ion-col>
+</ion-row>
+
+<swiper [config]="videosConfig">
+  <ng-template swiperSlide>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Awesome DIY Workshop Ideas</ion-card-title>
+        <ion-card-subtitle>34 ideas to make your garage the best.</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/R8-ZgmB9uZk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+  <ng-template swiperSlide>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Best Kitchen Choices</ion-card-title>
+        <ion-card-subtitle>Pick the hardware for your new kitchen.</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/_Fg0qMVTGR8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+  <ng-template swiperSlide>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Ingenious Construction Ideas</ion-card-title>
+        <ion-card-subtitle>Talented constructors on a new level.</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <iframe width="100%" height="200" src="https://www.youtube.com/embed/N57xhBjfkDk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+</swiper>
+
+
+<ion-row>
+  <ion-col size="8">
+    <ion-label class="ion-margin-start heading">
+      All Products
+    </ion-label>
+  </ion-col>
+  <ion-col size="4">
+    <ion-button fill="clear" color="medium" size="small">
+      VIEW ALL
+      <ion-icon color="primary" name="chevron-down-circle-outline" slot="end"></ion-icon>
+    </ion-button>
+  </ion-col>
+  <!-- <swiper [config]="hardwareConfig">
+    <ng-template swiperSlide *ngFor="let video of videos">
+      <ion-card>
+        <app-hardware [hardware]="video" [routerLink]="['/', 'tabs', 'hardwares', video?.id]"></app-hardware>
+      </ion-card>
+    </ng-template>
+  </swiper> -->
+</ion-row>
+
+<ion-list>
+  <ion-card *ngFor="let p of products">
+    <ion-card-header>
+      <ion-card-title>{{ p.name }}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="6">
+          <ion-label>
+            <p class="price"><ion-text style="font-size: large" color="primary">{{p.price | currency: 'R'}}</ion-text></p>
+            <p class="ion-text-wrap ion-text-justify">{{p.desc}}</p>
+          </ion-label>
+        </ion-col>
+        <ion-col size="1" class="ion-text-right">
+          <ion-button fill="clear" (click)="addToCart(p)" (click)="addedToCartToast(p)">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-col size="3" class="ion-text-right">
+          <ion-button fill="clear" (click)="addToOrder(p)" (click)="addedToOrdersToast(p)">
+            <ion-icon name="receipt-outline"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-thumbnail size="2" *ngIf="p?.cover">
+          <ion-img [src]="p?.cover"></ion-img>
+        </ion-thumbnail>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+</ion-list>
+
+</ion-content>

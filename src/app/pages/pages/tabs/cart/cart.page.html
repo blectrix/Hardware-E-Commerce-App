@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Your Shopping Cart</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-fab vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="openCart()" #cart>
+    <div class="cart-length">{{ cartItemCount | async }}</div>
+    <ion-icon name="cart" class="cart-icon"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content color="light">
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
+  <div class="sticky-row">
+    <div class="bg-image">
+      <img src="assets/products/42.png" />
+    </div>
+  </div>
+
+<!-- <ion-list>
+  <ion-item *ngFor="let item of selectedItems" lines="inset">
+    {{ item.count }} x {{ item.name }} - {{ item.price | currency: 'R':'symbol' }}
+    <ion-label slot="end" text-right>{{ (item.price * item.count) | currency: 'R':'symbol' }}</ion-label>
+  </ion-item>
+  <ion-item>
+    Total: <span slot="end">{{ total | currency:'R':'symbol' }}</span>
+  </ion-item>
+</ion-list> -->
+<ion-list>
+  <ion-card *ngFor="let item of selectedItems">
+    <!-- <ion-card-header>
+      <ion-card-title>{{ item.name }} x {{ item.count }}</ion-card-title>
+    </ion-card-header> -->
+    <ion-card-content>
+      <b><p class="name"><ion-text style="font-size: large" color="dark">{{item.name}} x {{ item.count }}</ion-text></p></b>
+      <ion-row class="ion-align-items-center">
+        <ion-col size="6">
+          <ion-label>
+            <p class="price"><ion-text style="font-size: large" color="primary">{{item.price | currency: 'R':'symbol'}}</ion-text></p>
+          </ion-label>
+        </ion-col>
+        <ion-col size="4" class="ion-text-right">
+          <ion-button fill="clear" (click)="addToCart(item)">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-thumbnail size="2" *ngIf="item?.cover">
+          <ion-img [src]="item?.cover"></ion-img>
+        </ion-thumbnail>
+      </ion-row>
+    </ion-card-content>
+  </ion-card>
+  <ion-item>
+    <h2><b>Total:</b></h2> <span slot="end"><h2><b>{{ total | currency:'R':'symbol' }}</b></h2></span>
+  </ion-item>
+</ion-list>
+<ion-button expand="full" (click)="payment()" shape="round"  >
+  <b>Make Payment</b>
+</ion-button>
+</ion-content>

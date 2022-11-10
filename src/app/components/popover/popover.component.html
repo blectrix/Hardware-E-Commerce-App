@@ -1,0 +1,35 @@
+<!-- <ion-button id="nested-button">Click to open popover</ion-button>
+<ion-popover trigger="nested-button" [dismissOnSelect]="true"> -->
+  <!-- <ng-template> -->
+    <ion-content class="my-custom-class">
+      <ion-list>
+        <ion-item shape="round" class="ion-text-center" color="primary">
+          <ion-label><b>Sort</b></ion-label>
+        </ion-item>
+        <ion-item (click)="sortAlpha()" [button]="true" [detail]="false">
+          <ion-label>A-Z</ion-label>
+        </ion-item>
+        <ion-item [button]="true" [detail]="false" id="nested-trigger">
+          <ion-label>Price</ion-label>
+        </ion-item>
+        <ion-item (click)="sortRating()" [button]="true" [detail]="false">
+          <ion-label>Rating</ion-label>
+        </ion-item>
+        <!-- <ion-item (click)="close()">
+          <ion-label>Close</ion-label>
+        </ion-item> -->
+        <ion-popover trigger="nested-trigger" [dismissOnSelect]="true" side="start">
+            <ion-content>
+              <ion-item (click)="sortPriceHigh()" [button]="true">
+                <ion-label>High->Low</ion-label>
+              </ion-item>
+              <ion-item (click)="sortPriceLow()" [button]="true">
+                <ion-label>Low->High</ion-label>
+              </ion-item>
+            </ion-content>
+        </ion-popover>
+      </ion-list>
+    </ion-content>
+  <!-- </ng-template> -->
+<!-- </ion-popover> -->
+

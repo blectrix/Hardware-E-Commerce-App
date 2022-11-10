@@ -1,0 +1,80 @@
+
+<ion-content fullscreen>
+  <ion-toolbar color="primary">
+    <div class="ion-text-center">
+      <ion-text style="font-size: 1.5rem;"><b>YOUR ORDERS</b></ion-text>
+    </div>
+  </ion-toolbar>
+
+  <div class="ion-text-end">
+    <ion-button (click)="close()" fill="clear" color="dark">
+      <ion-icon name="close" slot="start"></ion-icon>
+    </ion-button>
+  </div>
+  
+
+  <div class="ion-padding">
+
+      <ion-list>
+        <ion-item *ngFor="let o of orders" class="ion-text-wrap">
+          <ion-grid>
+            <ion-row>
+              <ion-thumbnail size="8" *ngIf="o?.cover">
+                <ion-img [src]="o?.cover"></ion-img>
+              </ion-thumbnail>
+            </ion-row>
+            <ion-row class="ion-align-items-center">
+              <ion-col size="2" class="ion-align-sel-center">
+                <ion-button color="medium" fill="clear" (click)="decreaseOrdersItem(o)">
+                  <ion-icon name="remove-circle" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="1.5" class="ion-align-self-center">
+                {{ o.amount }}
+              </ion-col>
+
+              <ion-col size="1.5" class="ion-align-self-center">
+                <ion-button color="medium" fill="clear" (click)="increaseOrdersItem(o)">
+                  <ion-icon name="add-circle" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+
+              <ion-col size="2" offset="5">
+                <ion-button color="medium" fill="clear" (click)="removeOrdersItem(o)">
+                  <ion-icon name="close-circle" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-col>
+            </ion-row>
+            
+            <ion-row>
+              <ion-col size="8">
+                <b>{{o.name}}</b>
+              </ion-col>
+              <ion-col size="4" class="ion-text-end">
+                {{ o.amount * o.price | currency: 'R' }}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+        <ion-item>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="8">
+                Total:
+              </ion-col>
+              <ion-col size="4" class="ion-text-end">
+                {{ getTotal() | currency: 'R' }}
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-item>
+      </ion-list>
+
+      <ion-button expand="full" (click)="checkout()" >
+        Checkout
+      </ion-button>
+  </div>
+
+</ion-content>
+

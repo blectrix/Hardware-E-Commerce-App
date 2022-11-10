@@ -1,0 +1,125 @@
+ion-content {
+    --padding-top: 0px;
+}
+
+.sticky-row {
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background: #fff;
+    box-shadow: 0px 9px 11px -15px rgba(0, 0, 0, 0.75);
+    // display: flex;
+    // flex-direction: row;
+    // align-items: flex-end;
+}
+
+.info-row {
+    background: #fff;
+    position: sticky;
+    top: calc(env(safe-area-inset-top) - 40px);
+    z-index: 2;
+}
+
+ion-refresher {
+    padding-top: calc(env(safe-area-inset-top) + 50px);
+}
+
+ion-searchbar {
+    --ion-color: var(--ion-color-primary);
+}
+
+ion-text {
+    font-family: Monument;
+    font-style: italic;
+    font-weight: normal;      
+}
+
+ion-content {
+    .banners {
+        height: 24vh;
+        margin-top: 5px;
+        img {
+            width: 100%;
+            height: 20vh;
+            border-radius: 10px;
+            box-shadow: -1px 11px 13px -6px rgb(87, 86, 86);
+        }
+    }
+    ion-row.category {
+        height: 10vh;
+        margin: 2vh 0;
+        ion-avatar {
+            height: 8vh;
+            width: 8vh;
+        }
+        ion-label {
+            font-size: 0.75rem;
+            font-weight: normal !important;
+        }
+    }
+
+    ion-row {
+        ion-label {
+            font-weight: bold;
+        }
+        ion-label.heading {
+            font-size: 1.25rem;
+        }
+        ion-col {
+            align-self: center;
+        }
+    }
+    ion-list {
+        background: transparent;
+        ion-item-group {
+            margin-bottom: 2vh;
+        }
+    }
+
+    .cart-icon {
+        font-size: 45px;
+    }
+
+    .cart-length {
+        color: var(--ion-color-primary);
+        position: absolute;
+        top: 15px;
+        left: 18.5px;
+        font-weight: 600;
+        font-size: 1.05em;
+        min-width: 25px;
+        z-index: 10;
+    }
+
+    ion-row {
+        ion-col {
+            .emoji {
+                padding: 0 4px;
+            }
+        }
+    }
+
+    ion-list {
+        ion-item {
+            ion-label {
+                ion-text.item {
+                    font-weight: 450;
+                }
+                .price {
+                    padding: 3px 0;
+                    
+                }
+            }
+            ion-thumbnail {
+                width: 20vh;
+                height: 20vh;
+                ion-img {
+                    border-radius: 5px;
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+

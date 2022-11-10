@@ -1,0 +1,89 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button shape="round" color="primary" fill="solid">
+        <ion-icon slot="icon-only" size="small" name="heart-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>On Promotion</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div>
+    <img [src]="hardware?.cover" />
+  </div>
+  
+  <ion-item lines="none">
+    <ion-label class="ion-text-wrap">
+      <ion-text>
+        <strong>{{hardware?.name}}</strong>
+      </ion-text>
+      <p>
+        <ion-text color="medium">
+          <i>{{getCuisines(hardware?.cuisines)}}</i>
+        </ion-text>
+      </p>
+      <ion-row class="ion-text-left">
+        <ion-col size="5.5">
+          <ion-text style="font-size: 20px;"><b>{{hardware?.price}}</b></ion-text>
+        </ion-col>
+        <ion-col size="2" class="rating">
+          <ion-text>{{hardware?.rating}} </ion-text>
+          <ion-icon name="star" color="dark"></ion-icon>
+        </ion-col>
+        <ion-col *ngIf="hardware?.availability == 'In Stock'" size="4.5">
+          <ion-text color="success">
+            <ion-text>{{hardware?.availability}}</ion-text>
+          </ion-text>
+        </ion-col>
+        <ion-col *ngIf="hardware?.availability == 'Out Of Stock'" size="4">
+          <ion-text color="danger">
+            <ion-text>{{hardware?.availability}}</ion-text>
+          </ion-text>
+        </ion-col>
+      </ion-row>
+     <p *ngIf="hardware?.expdate">
+        <ion-text color="danger" class="expdate">
+          On Promotion Until: {{hardware?.expdate}}
+        </ion-text>
+      </p> 
+    </ion-label>
+  </ion-item>
+  
+  <ion-fab style="transform: translateY(23vh);" vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openCart()" #cart>
+      <div class="cart-length">{{ cartItemCount | async }}</div>
+      <ion-icon name="cart" class="cart-icon"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+  
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label color="primary"><b>Best Deals</b></ion-label>
+    </ion-list-header>
+    <ng-container *ngFor="let p of products">
+      <ion-item *ngIf="hardware?.id == p?.category_id" lines="full">
+        <ion-label>
+          <ion-text class="p"><b>{{p?.name}}</b></ion-text>
+          <p class="price"><ion-text color="dark">{{p.price | currency: 'R'}}</ion-text></p>
+          <p *ngIf="p?.desc" class="ion-text-wrap ion-text-justify">{{p?.desc}}</p>
+        </ion-label>
+        <ion-col size="4" class="ion-text-right">
+          <ion-button fill="clear" (click)="addToCart(p)">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-thumbnail slot="end" *ngIf="p?.cover">
+          <ion-img [src]="p?.cover"></ion-img>
+        </ion-thumbnail>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+
+</ion-content>

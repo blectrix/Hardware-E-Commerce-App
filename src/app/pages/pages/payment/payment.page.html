@@ -1,0 +1,56 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/cart"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Complete Your Purchase</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<div class="sticky-row">
+  <div class="bg-image">
+    <img src="assets/products/43.png" />
+  </div>
+</div>
+
+<ion-content align="center">
+
+  <div #paypalRef></div>
+
+  <h2>Select Payment Method</h2>
+
+  <div class="row mt-2">
+    <div class="col-md-3">
+      <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+    </div>
+  </div>
+
+  <ion-list>
+    <ion-item>
+      <h2><b>Total:</b></h2> <span slot="end"><h2><b>{{ total || totalOrders | currency:'R':'symbol' }}</b></h2></span>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" (click)="payCompleted()" shape="round">
+    <b>Purchase</b>
+  </ion-button>
+
+  <script src="https://www.paypal.com/sdk/js?client-id=AYWpg9Wgh2BAClUzTx5v8U9PssAc4SqEv1uLy2Yx4ZrqBGGsBePy7IBBF76L8pYYnafBuPAyBCU9jA3R&currency=ZAR"></script>
+  <script src="/siyeshe-app/src/app/pages/payment/payment.page.ts"></script>
+  
+    <div style="transform: translateY(15vh)" class="mt-2">
+      <ion-row class="ion-text-center">
+      <ion-col size="10">
+        <ion-label>
+          <p style="transform: translateX(4vh); font-size:12px"><ion-text>I strongly recommend checking out PayPal's <a
+            href="https://developer.paypal.com/docs/checkout/#try-the-buttons">official docs</a> if you want to learn more about
+          the flow of checkout process and meaning behind certain properties.</ion-text></p>
+        </ion-label>
+      </ion-col>
+    </ion-row>
+    </div>
+  
+    
+  
+
+</ion-content>

@@ -1,0 +1,83 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button shape="round" color="primary" fill="solid">
+        <ion-icon slot="icon-only" size="small" name="heart-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>{{ hardware?.name }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="bg-image" [style.background-image]="'url(' + hardware?.cover + ')'"></div> 
+
+  <ion-grid>
+    <ion-row class="ion-padding-start">
+      <ion-col size="12">
+        <h2><b>{{hardware?.name}}</b></h2>
+      </ion-col>
+      <ion-col size="12">
+        <ion-icon name="information-circle"></ion-icon>
+        <!-- <ion-text color="dark"><b> {{hardware?.rating}}</b></ion-text> -->
+        <span class="emoji">&#8226;</span>
+        <ion-text color="dark"><b>{{getCuisines(hardware?.cuisines)}}</b></ion-text>
+      </ion-col>
+      <ion-col size="12">
+        <h3>
+        <ion-icon name="pricetags-outline" color="medium"></ion-icon>
+        <ion-text color="dark"> {{hardware?.price}}</ion-text>
+        </h3>
+        <ion-icon name="storefront-outline" color="medium"></ion-icon>
+        <ion-text color="success"> {{hardware?.availability}}</ion-text>
+      
+      </ion-col>
+    <p *ngIf="hardware?.expdate">
+      <ion-col size="12">
+        <ion-icon name="alarm-outline" color="medium"></ion-icon>
+        <ion-text color="danger" class="expdate">
+          Promotion Valid Until: {{hardware?.expdate}}
+        </ion-text>
+      </ion-col>
+    </p>
+    </ion-row>
+  </ion-grid>
+
+  <ion-fab style="transform: translateY(15vh);" vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="openCart()" #cart>
+      <div class="cart-length">{{ cartItemCount | async }}</div>
+      <ion-icon name="cart" class="cart-icon"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+
+  
+
+  <ion-list *ngFor="let category of categories">
+    <ion-list-header *ngIf="category?.name == hardware?.name">
+      <ion-label>{{category?.name}}</ion-label>
+    </ion-list-header>
+    <ng-container *ngFor="let p of products">
+      <ion-item *ngIf="category?.id == p?.category_id" lines="full">
+        <ion-label>
+          <ion-text class="p"><b>{{p?.name}}</b></ion-text>
+          <p class="price"><ion-text color="dark">R{{p?.price}}</ion-text></p>
+          <p *ngIf="p?.desc" class="ion-text-wrap ion-text-justify">{{p?.desc}}</p>
+        </ion-label>
+        <ion-col size="4" class="ion-text-right">
+          <ion-button fill="clear" (click)="addToCart(p)">
+            <ion-icon name="add"></ion-icon>
+          </ion-button>
+        </ion-col>
+        <ion-thumbnail slot="end" *ngIf="p?.cover">
+          <ion-img [src]="p?.cover"></ion-img>
+        </ion-thumbnail>
+      </ion-item>
+    </ng-container>
+  </ion-list>
+
+</ion-content>

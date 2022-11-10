@@ -1,0 +1,67 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Your Orders</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-fab vertical="top" horizontal="end" slot="fixed">
+  <ion-fab-button (click)="openOrders()" #orders>
+    <div class="orders-length">{{ ordersItemCount | async }}</div>
+    <ion-icon name="cart" class="cart-icon"></ion-icon>
+  </ion-fab-button>
+</ion-fab>
+
+<ion-content color="light">
+<div class="sticky-row">
+  <div class="bg-image">
+    <img src="assets/products/44.png" />
+  </div>
+</div>
+
+<ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+  <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+
+  <ion-list>
+    <ion-card *ngFor="let item of selectedItems">
+      <ion-card-content>
+        <ion-row>
+          <ion-col size="10">
+            <b><p class="name"><ion-text style="font-size: large" color="dark">{{item.name}} x {{ item.count }}</ion-text></p></b>
+          </ion-col>
+          <ion-col size="2">
+            <ion-button color="medium" fill="clear" (click)="removeOrdersItem(item)">
+              <ion-icon name="close-circle" slot="icon-only"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="6">
+            <ion-label>
+              <p class="price"><ion-text style="font-size: large" color="primary">{{item.price | currency: 'R':'symbol'}}</ion-text></p>
+            </ion-label>
+          </ion-col>
+          <ion-col size="4" class="ion-text-right">
+            <ion-button fill="clear" (click)="addToOrders(item)">
+              <ion-icon name="add"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-thumbnail size="2" *ngIf="item?.cover">
+            <ion-img [src]="item?.cover"></ion-img>
+          </ion-thumbnail>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
+    <ion-item>
+      <h2><b>Total:</b></h2> <span slot="end"><h2><b>{{ total | currency:'R':'symbol' }}</b></h2></span>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" (click)="placeOrder()" shape="round"  >
+    <b>Place Order</b>
+  </ion-button>
+
+</ion-content>
